@@ -1,0 +1,68 @@
+<form [formGroup]="angularForm" (ngSubmit)="submit()">
+  <div class="mb-3">
+    <label for="question" class="form-label">Question:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="question"
+      formControlName="question"
+      placeholder="Question"
+    />
+    <!-- <div *ngIf="submitted && f.question.errors" class="invalid-feedback">
+        <div *ngIf="f.question.errors.required">* Question is required</div>
+    </div> -->
+  </div>
+
+  <div class="mb-3">
+    <label for="numberofoptions" class="form-label">Number of Options:</label>
+    <div class="d-flex">
+
+      <input
+      type="number"
+      class="form-control"
+      id="numberofoptions"
+      formControlName="numberofoptions"
+      placeholder="Number of Options..."
+      readonly="true"
+      />
+    <div class="btn btn-primary ms-1" (click)="addOption()">+</div>
+    </div>
+      <!-- <div *ngIf="submitted && f.numberofoptions.errors" class="invalid-feedback">
+        <div ngIf="f.numberofoptions.errors.required"> value is required</div>
+    </div> -->
+  </div>
+  <div formArrayName="optionsArray">
+    <div
+      *ngFor="let option of getOptionsArray().controls; let i = index"
+      [formGroupName]="i"
+    >
+      <label for="option" class="form-label">Option {{ i + 1 }}</label>
+      <div class="mb-3">
+        <div class="d-flex">
+          <input type="text" formControlName="option" class="form-control" />
+<div class="btn btn-primary ms-1" (click)="deleteOption(i)">-</div>
+        </div>
+      </div>
+      <div class="form-check form-check-inline m-2">
+        <label for="isRight" class="form-label"> False :</label>
+        <input
+          type="radio"
+          class="form-check-input"
+          formControlName="isRight"
+          [value]="false"
+        />
+      </div>
+      <div class="form-check form-check-inline m-2">
+        <label for="isRight" class="form-label">True :</label>
+        <input
+          type="radio"
+          class="form-check-input"
+          formControlName="isRight"
+          [value]="true"
+        />
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+</form>
+
